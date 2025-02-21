@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="max-width: 700px; margin: 0 auto;">
+    <!-- opening div -->
+    <div class="projectInfo">
+        <ul id="listProjects" class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('trips')}}">
+                    Trip Planner</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('products')}}">
+                    Product Catalog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('mb_index')}}">
+                    Message Board</a>
+            </li>
+        </ul>
+        <hr>
+    </div>
+    <h1>Trip Planner</h1>
+    <br>
+
+    <body>
+        <form id="tripForm">
+            <div class="form-group">
+                Destination:
+                <input class="form-control" name="destination" type="text" placeholder="Destination:" required> <br>
+                Start date:
+                <input class="form-control" name="start" type="date" min="1925-01-01" max="2125-01-01" required> <br>
+                End date:
+                <input class="form-control" name="end" type="date"  min="1925-01-01" max="2125-01-01" required> <br>
+                Category: <select class="form-control" name="category">
+                    <option value="holiday">holiday</option>
+                    <option value="business">business</option>
+                    <option value="other">other</option>
+                </select>
+                <br>
+                <button class="btn btn-primary">
+                    Add trip
+                </button>
+                <br>
+            </div>
+        </form>
+        <br>
+        <div id="trips" class="card my-3">
+
+            <div class="trip">
+
+            </div>
+
+        </div>
+    </body>
+    <script defer>
+
+        // STATE
+        const tripForm = document.querySelector("#tripForm");
+        const tripContainer = document.querySelector("#trips");
+        let trips = JSON.parse(localStorage.getItem('trips')) || [];
+
+        renderTrips()
+
+        // Trip From event listener 
+        tripForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const newTrip = {
+                destination: tripForm.destination.value,
+                start: tripForm.start.value,
+                end: tripForm.end.value,
+                category: tripForm.category.value
+            };
+            trips.push(newTrip);
+            renderTrips();
+            saveTrips();
+        })
+
+        function renderTrips() {
+            tripContainer.innerHTML = "";
+            // Iterates through trips
+            for (let i = 0; i < trips.length; i++) {
+                let trip = trips[i]
+                // Elements created
+                let card = document.createElement("div");
+                let p = document.createElement("p");
+                let delBut = document.createElement("button");
+                
+                // Class updated
+                card.classList.add('card')
+                // inner HTML updated with trip information
+                p.innerHTML = `
+            <strong>Destination: </strong> ${trip.destination} <br>
+            <strong>Start Date: </strong>${trip.start} <br>
+            <strong>End Date: </strong> ${trip.end} <br>
+            <strong>Category: </strong> ${trip.category} <br>
+        `       
+                
+                delBut.id = `deleteButton`;
+                delBut.innerText = "Delete";
+                delBut.className = "btn btn-secondary";
+                card.className = "card-body";
+
+                tripContainer.append(card);
+                card.append(p);
+                card.append(delBut);
+                delBut.addEventListener("click", function () {
+                    trips.splice(i, 1);
+                    renderTrips();
+                    saveTrips();
+                })
+            }
+        }
+
+        function saveTrips() {
+            localStorage.setItem('trips', JSON.stringify(trips));
+        }
+    </script>
+</div>
+
+</html>
+
+{% endblock %}

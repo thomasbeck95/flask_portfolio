@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 700px; margin: 0 auto;">
+    <div class="projectInfo">
+        <ul id="listProjects" class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('trips')}}">
+                    Trip Planner</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('products')}}">
+                    Product Catalog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('mb_index')}}">
+                    Message Board</a>
+            </li>
+        </ul>
+        <hr>
+    </div>
+<h1>Message Board</h1>
+<h4>Login/Register</h4>
+<hr>
+<div class="container mb-3">
+    <form id="auth-form" action="{{url_for('login')}}" method="post">
+        <label for="username" class="form-label">Username:</label>
+        <input id="username" type="text" name="username" placeholder="username" class="form-control" required>
+        <label for="password" class="form-label">Password:</label>
+        <input id="password" type="password" name="password" placeholder="password" class="form-control" required>
+        <br>
+        <input type="submit" value="Login" class="btn btn-secondary" onclick="setActionForm('login')">
+        <input type="button" value="Register" class="btn btn-primary" onclick="setActionForm('register')">
+    </form>
+</div>
+<script>
+    function setActionForm(action) {
+        let form = document.querySelector("#auth-form");
+        if (action === 'login') {
+            form.action = "{{ url_for('login') }}";
+            form.method = 'post';
+            form.submit();
+        };
+        if (action === 'register') {
+            form.action = "{{ url_for('register') }}";
+            form.method = 'post';
+            form.submit();
+        };
+    };
+</script>
+
+</div>
+{% endblock %}

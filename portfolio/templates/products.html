@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="max-width: 700px; margin: 0 auto;">
+    <!-- opening div -->
+    <div class="projectInfo">
+        <ul id="listProjects" class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('trips')}}">
+                    Trip Planner</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('products')}}">
+                    Product Catalog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('mb_index')}}">
+                    Message Board</a>
+            </li>
+        </ul>
+        <hr>
+    </div>
+    <div>
+        <h1>Product Catalog</h1>
+        <main id="shopDisplay" class="container-sm">
+            <div class="buttonContainer"
+                style="display: flex; justify-content: space-between; width:100%; margin: 10px 0;">
+                <button id="previousButton" class="btn btn btn-secondary">Previous</button>
+                <button id="nextButton" class="btn btn-secondary">Next</button>
+            </div>
+            <div id="results"></div>
+        </main>
+    </div>
+    <!-- final div -->
+</div>
+<script src="{{url_for('static', filename='products.js')}}" defer></script>
+
+{% endblock %}

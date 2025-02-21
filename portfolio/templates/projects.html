@@ -1,0 +1,24 @@
+{% extends "base.html"%}
+{% block content %}
+<div class="container" style="max-width: 700px; margin: 0 auto;">
+    <!-- opening div -->
+    <div class="projectInfo">
+        <ul id="listProjects" class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('trips')}}">
+                    Trip Planner</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('products')}}">
+                    Product Catalog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('mb_index')}}">
+                    Message Board</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- final div -->
+</div>
+{% endblock content %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 700px; margin: 0 auto;">
+    <div class="projectInfo">
+        <ul id="listProjects" class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('trips')}}">
+                    Trip Planner</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('products')}}">
+                    Product Catalog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('mb_index')}}">
+                    Message Board</a>
+            </li>
+        </ul>
+        <hr>
+    </div>
+    <div class="blogInsert">
+        <h1>Message Board</h1>
+        <h4>Welcome, {{ username }}</h4>
+        <a href="{{ url_for('logout') }}" class="btn-logout">
+            <button class="btn btn-danger">Logout</button>
+        </a>
+
+        <hr>
+        <h3>Post a new message:</h3>
+        <form action="{{ url_for('dashboard') }}" method="POST">
+            <input class="form-control" type="text" name="title" id="title" placeholder="Title:" required>
+            <br>
+            <textarea class="form-control" name="blogText" id="blogText" placeholder="Write your blog here..." rows="3"
+                required></textarea>
+            <br>
+            <button class="btn btn-primary" type="submit" class="btn-submit">Submit</button>
+        </form>
+    </div>
+    <hr>
+    <div class="blogView">
+        <h2>All messages:</h2>
+        <hr>
+        {% for blog in blogs | reverse %}
+
+        <div class="card">
+            <h5>{{ blog.title }}</h5>
+            <p><strong>User:</strong>
+                {% for user in users %}
+                {% if user.id == blog.user_id %}
+                {{ user.username }} <br>
+                {% endif %}
+                {% endfor %}
+            <p><strong>Date:</strong> {{ blog.date }}</p>
+            <p>{{ blog.blog }}</p>
+        </div>
+        <br>
+
+
+        {% endfor %}
+    </div>
+    {% endblock %}

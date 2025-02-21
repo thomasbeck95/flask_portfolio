@@ -1,0 +1,38 @@
+{% extends "base.html"%}
+{% block content %}
+<div class="container" style="max-width: 700px; margin: 0 auto;">
+    <!-- opening div -->
+    <div class="workInfo">
+        <ul id="listWork" class="nav justify-content-center">
+            {% for job in jobs %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('job', job_id = job.id)}}">
+                    {{job.title}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <hr>
+    <br>
+    <div class="work_info row align-items-start">
+        <div class="col-12 col-md-5 text-center mb-3">
+            <img src="{{url_for('static', filename='img/' + job.img)}}" alt="picture from work experience" class="img-fluid" style="max-width: 250px; max-height: 300px;">
+        </div>
+        <div class="col-12 col-md-7">
+            <ul style="list-style-type: none;">
+                <li><strong>Job Title:</strong> {{job.title}}</li>
+                <li><strong>Company:</strong> {{job.company}}</li>
+                <li><strong>Dates:</strong> {{job.start}} to {{job.end}}</li>
+                <li><strong>Description:</strong> {{job.description}}</li>
+                <li><strong>Skills:</strong>
+                    {% for skill in job.skills %}
+                    <a href="{{url_for('skill', skill_id = skill.id)}}" class="link-secondary">{{ skill.skill }}</a>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- final div -->
+</div>
+{% endblock content %}

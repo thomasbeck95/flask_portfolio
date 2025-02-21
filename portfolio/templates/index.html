@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="max-width: 700px; margin: 0 auto;">
+    <!-- Opening div -->
+    <div class="row align-items-center mb-4">
+        <div class="col-md-4 text-center">
+            <img src="{{ url_for('static', filename='img/thomas_hero.png') }}" alt="man coding doodle"
+                class="img-fluid">
+        </div>
+        <div class="col-md-8">
+            <h1>Hi, I'm Thomas <span id="hand">👋</span></h1>
+            <span>
+                <img src="{{ url_for('static', filename='img/online_dot.png') }}" alt="online dot" height="30px"
+                    style="display: inline;" class="mb-3">
+                <h2 style="color: grey; display: inline;">Available for work</h3>
+            </span>
+        </div>
+    </div>
+
+    <style>
+        @keyframes wave {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(15deg);
+            }
+
+            50% {
+                transform: rotate(0deg);
+            }
+
+            75% {
+                transform: rotate(-15deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        #hand {
+            display: inline-block;
+            font-size: 50px;
+            transform-origin: bottom right;
+        }
+    </style>
+    <script defer>
+        const hand = document.querySelector("#hand");
+        hand.addEventListener("mouseenter", function () {
+            hand.style.animation = 'wave 0.5s infinite';
+        });
+        hand.addEventListener("mouseleave", function () {
+            hand.style.animation = 'none';
+        });
+    </script>
+
+    <p>
+        As a career changer from teaching, now an MSc Computing student at Cardiff University, I offer a
+        unique set of skills gained through industrial and academic experiences. My journey from teaching to
+        software engineering reflects a solid commitment to lifelong learning and adaptability. I’m excited
+        to leverage my leadership experience and analytical mindset to create meaningful software solutions.
+    </p>
+    <hr>
+    <div class="row mt-5">
+        <h3 class="text-center"> Technical Skills:</h3>
+        <div class="d-flex flex-wrap justify-content-center align-items-center">
+            {% for skill in skills %}
+            {% if skill.type == "Technical" %}
+            <figure class="figure text-center">
+                <a href="{{ url_for('skill', skill_id=skill.id) }}" class="d-inline-block m-2 p-3">
+                    <img src="{{ skill.thumbnail }}" alt="Skill thumbnail for {{ skill.skill }}" class="img-fluid"
+                        style="height:150px;">
+                    <figcaption class="figure-caption">{{ skill.skill }}</figcaption>
+                </a>
+            </figure>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+    <div class="row mt-5">
+        <h3 class="text-center"> Soft Skills:</h3>
+        <div class="d-flex flex-wrap justify-content-center align-items-center">
+            {% for skill in skills %}
+            {% if skill.type == "Soft" %}
+            <figure class="figure text-center m-3">
+                <a href="{{ url_for('skill', skill_id=skill.id) }}" class="d-inline-block p-3">
+                    <img src="{{ url_for('static', filename='img/thumbnails/' + skill.thumbnail) }}"
+                        alt="Doodle of {{ skill.title }}" class="img-fluid" style="height:150px;">
+                    <figcaption class="figure-caption">{{ skill.skill }}</figcaption>
+                </a>
+            </figure>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col">
+            <div class="d-flex flex-column align-items-center">
+                <img src="{{ url_for('static', filename='img/work.svg') }}" alt="doodle of working man"
+                    style="height:150px;" class="img-fluid mb-3">
+                <h3>Work Experience</h3>
+                <p>As Head of Chemistry at Coloma Convent Girls' School, I led curriculum development and project
+                    initiatives, demonstrating my ability to manage teams, improve operational outcomes, and execute
+                    structured solutions effectively. Currently advancing my technical expertise with an MSc in
+                    Computing, gaining experience programming in Python, HTML, CSS and JavaScript. Evidence for my dedication
+                    to continuous learning.
+                </p>
+                <form action="{{ url_for('work') }}">
+                    <button type="submit" class="btn btn-success">Find out more</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<!-- final div -->
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html"%}
+{% block content %}
+<div class="container" style="max-width: 700px; margin: 0 auto;">
+    <!-- opening div -->
+    <div class="skillInfo">
+        <ul id="listSkill" class="nav justify-content-center">
+            {% for skill in skills %}
+            <li class="nav-item px-3">
+                <a class="nav-link" href="{{url_for('skill', skill_id = skill.id)}}">
+                    {{skill.skill}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- final div -->
+</div>
+
+{% endblock content %}
